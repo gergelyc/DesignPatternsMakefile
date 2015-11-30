@@ -10,7 +10,7 @@
 # ------------------------------------------------
 
 # project name (generate executable with this name)
-TARGET   = DesigPatterns
+TARGET   = DesignPatterns
 
 CC       = g++
 # compiling flags here
