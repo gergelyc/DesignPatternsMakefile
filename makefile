@@ -1,7 +1,7 @@
 # ------------------------------------------------
 # Generic Makefile
 #
-# Author: yanick.rochon@gmail.com
+# Author: csomos.gergo@gmail.com
 # Date  : 2015-11-30
 #
 # Changelog :
