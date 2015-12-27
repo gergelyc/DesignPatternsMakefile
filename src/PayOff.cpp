@@ -11,7 +11,7 @@
 using namespace std;
 
 PayOff::PayOff(double Strike_, OptionType TheOptionsType_)
-	: Strike{ Strike_ }, TheOptionsType{ TheOptionsType_ }
+	: TheOptionsType{ TheOptionsType_ }, Strike{ Strike_ }       
 {
 }
 

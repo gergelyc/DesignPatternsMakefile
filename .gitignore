@@ -33,3 +33,8 @@
 
 # bin folder
 /bin
+
+# vim temporary files
+*.swp
+*~
+
