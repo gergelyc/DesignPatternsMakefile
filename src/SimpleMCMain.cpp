@@ -10,6 +10,7 @@ int main()
 	double Spot;
 	double Vol;
 	double r;
+	int PutOrCall;
 	unsigned long NumberOfPaths;
 
 	cout << "\nEnter expiry\n";
@@ -27,15 +28,26 @@ int main()
 	cout << "\nEnter r\n";
 	cin >> r;
 
+	cout << endl << "Put (0) or call (1): " << endl;
+	cin >> PutOrCall;
+
 	cout << "\nNumber of paths\n";
 	cin >> NumberOfPaths;
 
-	PayOff callPayOff(Strike, PayOff::call);
-	PayOff putPayOff(Strike, PayOff::put);
+	PayOff* thePayOffPtr;
 
-	double resultCall = SimpleMonteCarlo(callPayOff, Expiry, Spot, Vol, r, NumberOfPaths);
-	double resultPut = SimpleMonteCarlo(putPayOff, Expiry, Spot, Vol, r, NumberOfPaths);
+	if (PutOrCall)
+	{
+		thePayOffPtr = new PayOffPut(Strike);
+	}
+	else
+	{
+		thePayOffPtr = new PayOffCall(Strike);
+	}
 
-	cout << "the call price is " << resultCall << endl;
-	cout << "the put price is " << resultPut << endl;
+	double result = SimpleMonteCarlo(*thePayOffPtr, Expiry, Spot, Vol, r, NumberOfPaths);
+
+	delete thePayOffPtr;
+
+	cout << "the price is " << result << endl;
 }
