@@ -14,11 +14,11 @@ TARGET   = DesignPatterns
 
 CC       = g++
 # compiling flags here
-CFLAGS   = -std=c++11 -Wall -I.
+CFLAGS   = -std=c++11 -Wall -Werror -ggdb
 
-LINKER   = g++ -o
+LINKER   = g++
 # linking flags here
-LFLAGS   = -Wall -I. -lm
+LFLAGS   = -Wall
 
 # change these to set the proper directories where each files shoould be
 SRCDIR   = src
@@ -35,7 +35,7 @@ all: $(BINDIR)/$(TARGET)
 	@echo  "DesignPatterns has been compiled!"
 	
 $(BINDIR)/$(TARGET): $(OBJECTS)
-	@$(LINKER) $@ $(LFLAGS) $(OBJECTS)
+	@$(LINKER) -o $@ $(LFLAGS) $(OBJECTS)
 	@echo "Linking complete!"
 
 $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
