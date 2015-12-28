@@ -5,7 +5,7 @@
 class VanillaOption
 {
 public:
-	VanillaOption(PayOff& ThePayOff_, double Expiry_);
+	VanillaOption(const PayOff& ThePayOff_, double Expiry_);
 	VanillaOption(const VanillaOption& original);
 	VanillaOption& operator=(const VanillaOption& original);
 	double GetExpiry() const

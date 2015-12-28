@@ -1,6 +1,6 @@
 #include "Vanilla.h"
 
-VanillaOption::VanillaOption(PayOff& ThePayOff_, double Expiry_)
+VanillaOption::VanillaOption(const PayOff& ThePayOff_, double Expiry_)
 	: Expiry{ Expiry_ }
 {
 	ThePayOffPtr = ThePayOff_.clone();
