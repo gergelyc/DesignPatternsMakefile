@@ -6,6 +6,7 @@ class RandomBase
 {
 public:
 	RandomBase(unsigned long Dimensionality);
+	virtual ~RandomBase(){}
 
 	inline unsigned long GetDimensionality() const;
 
