@@ -39,7 +39,18 @@ int main()
 	ParametersConstant VolParam(Vol);
 	ParametersConstant rParam(r);
 
-	double result = SimpleMonteCarlo(theOption, Spot, VolParam, rParam, NumberOfPaths);
+	StatisticsMean gatherer;
 
-	cout << "the price is " << result << endl;
+	SimpleMonteCarlo(theOption, Spot, VolParam, rParam, NumberOfPaths, gatherer);
+
+	vector<vector<double>> results = gatherer.GetResultSoFar();
+
+	cout << "For the double digital the results are:" << endl;
+
+	for (unsigned long i = 0; i < results.size(); i++)
+	{
+		for (unsigned long j = 0; j < results[i].size(); j++)
+			cout << results[i][j] << " ";
+		cout << endl;
+	}
 }

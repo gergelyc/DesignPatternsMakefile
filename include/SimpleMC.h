@@ -11,12 +11,14 @@
 #include "PayOff.h"
 #include "Vanilla.h"
 #include "Parameters.h"
+#include "MCStatistics.h"
 
-double SimpleMonteCarlo(
+void SimpleMonteCarlo(
 	const VanillaOption& theOption,
 	double Spot,
 	Parameters Vol,
 	Parameters r,
-	unsigned long NumberOfPaths);
+	unsigned long NumberOfPaths,
+	StatisticsMC& gatherer);
 
 #endif /* INCLUDE_SIMPLEMC_H_ */
