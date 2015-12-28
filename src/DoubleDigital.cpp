@@ -5,6 +5,11 @@ PayOffDoubleDigital::PayOffDoubleDigital(double LowerLevel_, double UpperLevel_)
 {
 }
 
+PayOff* PayOffDoubleDigital::clone() const
+{
+	return new PayOffDoubleDigital(*this);
+}
+
 double PayOffDoubleDigital::operator()(double Spot) const
 {
 	if (Spot <= LowerLevel)
