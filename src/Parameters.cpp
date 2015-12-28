@@ -2,39 +2,19 @@
 #include <cmath>
 
 Parameters::Parameters(const ParametersInner& innerParameter)
+	: InnerObject{ innerParameter }
 {
-	InnerObjectPtr = innerParameter.clone();
-}
-
-Parameters::Parameters(const Parameters& original)
-{
-	InnerObjectPtr = original.InnerObjectPtr->clone();
-}
-
-Parameters& Parameters::operator=(const Parameters& original)
-{
-	if (this != &original)
-	{
-		delete InnerObjectPtr;
-		InnerObjectPtr = original.InnerObjectPtr->clone();
-	}
-	return *this;
 }
 
 double Parameters::Mean(double time1, double time2) const
 {
-	return InnerObjectPtr->Integral(time1, time2) / (time2 - time1);
+	return InnerObject->Integral(time1, time2) / (time2 - time1);
 }
 
 double Parameters::RootMeanSquare(double time1, double time2) const
 {
-	double result = InnerObjectPtr->IntegralSquare(time1, time2);
+	double result = InnerObject->IntegralSquare(time1, time2);
 	return sqrt(result / (time2 - time1));
-}
-
-Parameters::~Parameters()
-{
-	delete InnerObjectPtr;
 }
 
 ParametersConstant::ParametersConstant(double Constant_)

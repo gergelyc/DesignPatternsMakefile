@@ -8,7 +8,6 @@
 #ifndef INCLUDE_SIMPLEMC_H_
 #define INCLUDE_SIMPLEMC_H_
 
-#include "PayOff.h"
 #include "Vanilla.h"
 #include "Parameters.h"
 #include "MCStatistics.h"

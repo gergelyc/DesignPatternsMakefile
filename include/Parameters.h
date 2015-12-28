@@ -1,5 +1,6 @@
 #ifndef PARAMETERS_H
 #define PARAMETERS_H
+#include "Wrapper.h"
 
 class ParametersInner
 {
@@ -18,9 +19,6 @@ class Parameters
 {
 public:
 	Parameters(const ParametersInner& innerObject);
-	Parameters(const Parameters& original);
-	Parameters& operator=(const Parameters& original);
-	virtual ~Parameters();
 
 	inline double Integral(double time1, double time2) const;
 	inline double IntegralSquare(double time1, double time2) const;
@@ -29,17 +27,17 @@ public:
 	double RootMeanSquare(double time1, double time2) const;
 
 private:
-	ParametersInner* InnerObjectPtr;
+	Wrapper<ParametersInner> InnerObject;
 };
 
 inline double Parameters::Integral(double time1, double time2) const
 {
-	return InnerObjectPtr->Integral(time1, time2);
+	return InnerObject->Integral(time1, time2);
 }
 
 inline double Parameters::IntegralSquare(double time1, double time2) const
 {
-	return InnerObjectPtr->IntegralSquare(time1, time2);
+	return InnerObject->IntegralSquare(time1, time2);
 }
 
 class ParametersConstant : public ParametersInner
