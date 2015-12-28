@@ -1,27 +1,22 @@
-/*
- * SimpleMC.cpp
- *
- *  Created on: Dec 3, 2015
- *      Author: gergelyc
- */
-
 #include "SimpleMC.h"
 #include "Random1.h"
 #include <cmath>
 
+using namespace std;
+
 double SimpleMonteCarlo(
 	const VanillaOption& theOption,
 	double Spot,
-	double Vol,
-	double r,
+	Parameters Vol,
+	Parameters r,
 	unsigned long NumberOfPaths)
 {
 	double Expiry = theOption.GetExpiry();
-	double variance = Vol * Vol * Expiry;
+	double variance = Vol.IntegralSquare(0, Expiry);
 	double rootVariance = sqrt(variance);
 	double itoCorrection = -0.5 * variance;
 
-	double movedSpot = Spot * exp(r * Expiry + itoCorrection);
+	double movedSpot = Spot * exp(r.Integral(0, Expiry) + itoCorrection);
 	double thisSpot;
 	double runningSum = 0;
 
@@ -33,7 +28,7 @@ double SimpleMonteCarlo(
 	}
 
 	double mean = runningSum / NumberOfPaths;
-	mean *= exp(-r * Expiry);
+	mean *= exp(-r.Integral(0, Expiry));
 	return mean;
 }
 
