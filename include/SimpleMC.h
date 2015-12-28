@@ -9,10 +9,10 @@
 #define INCLUDE_SIMPLEMC_H_
 
 #include "PayOff.h"
+#include "Vanilla.h"
 
 double SimpleMonteCarlo(
-	const PayOff& thePayOff,
-	double Expiry,
+	const VanillaOption& theOption,
 	double Spot,
 	double Vol,
 	double r,
