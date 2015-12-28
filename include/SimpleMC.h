@@ -11,6 +11,7 @@
 #include "Vanilla.h"
 #include "Parameters.h"
 #include "MCStatistics.h"
+#include "Random.h"
 
 void SimpleMonteCarlo(
 	const VanillaOption& theOption,
@@ -18,6 +19,7 @@ void SimpleMonteCarlo(
 	Parameters Vol,
 	Parameters r,
 	unsigned long NumberOfPaths,
-	StatisticsMC& gatherer);
+	StatisticsMC& gatherer,
+	RandomBase& generator);
 
 #endif /* INCLUDE_SIMPLEMC_H_ */
