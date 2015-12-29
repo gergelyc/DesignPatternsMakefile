@@ -33,7 +33,7 @@ ExoticBSEngine::ExoticBSEngine(const Wrapper<PathDependent>& TheProduct_,
 	LogSpot = std::log(Spot_);
 }
 
-void ExoticBSEngine::GetOnePath(std::vector<double> SpotValues)
+void ExoticBSEngine::GetOnePath(std::vector<double>& SpotValues)
 {
 	TheGenerator->GetUniforms(Variates);
 

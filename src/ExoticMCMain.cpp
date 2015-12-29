@@ -4,6 +4,8 @@
 #include "ConvergenceTable.h"
 #include "ParkMiller.h"
 #include "AntiThetic.h"
+#include "PathDependentAsian.h"
+#include "ExoticBSEngine.h"
 
 using namespace std;
 
@@ -15,6 +17,7 @@ int main()
 	double Vol;
 	double r;
 	unsigned long NumberOfPaths;
+	unsigned long NumberOfDates;
 
 	cout << "\nEnter expiry\n";
 	cin >> Expiry;
@@ -37,20 +40,41 @@ int main()
 	cout << "\nNumber of paths\n";
 	cin >> NumberOfPaths;
 
+	cout << "\nNumber of dates\n";
+	cin >> NumberOfDates;
+
+	vector<double> LookAtTimes(NumberOfDates);
+	for (unsigned long i = 0; i < NumberOfDates; i++)
+	{
+		cout << "Look at date " << i << ": ";
+		cin >> LookAtTimes[i];
+	}
+
+	//set up path dependent option
 	PayOffDoubleDigital payOffDoubleDigital{ LowerLevel, UpperLevel };
-	VanillaOption theOption(payOffDoubleDigital, Expiry);
+	PathDependentAsian TheAsianDoubleDigital(LookAtTimes, Expiry, payOffDoubleDigital);
 
-	ParametersConstant VolParam(Vol);
-	ParametersConstant rParam(r);
-
-	StatisticsMean gatherer;
-	ConvergenceTable gathererMeanConvTable(gatherer);
+	//set up exotic engine
+	ParametersConstant VolParam{ Vol };
+	ParametersConstant rParam{ r };
+	ParametersConstant dParam{ 0.0 };
 
 	RandomParkMiller ParkMillerGenerator(1);
 	AntiThetic generator(ParkMillerGenerator);
 
-	SimpleMonteCarlo(theOption, Spot, VolParam, rParam, NumberOfPaths, gathererMeanConvTable, generator);
+	ExoticBSEngine TheBSEngine(TheAsianDoubleDigital,
+		rParam,
+		dParam,
+		VolParam,
+		generator,
+		Spot);
 
+	//set up statistics gatherer
+	StatisticsMean gathererMean;
+	ConvergenceTable gathererMeanConvTable(gathererMean);
+
+	//run simulation
+	TheBSEngine.DoSimulation(gathererMeanConvTable, NumberOfPaths);
 	vector<vector<double>> results = gathererMeanConvTable.GetResultSoFar();
 
 	cout << "For the double digital the results are:" << endl;
