@@ -21,7 +21,7 @@ ExoticBSEngine::ExoticBSEngine(const Wrapper<PathDependent>& TheProduct_,
 
 	for (unsigned long i = 1; i < NumberOfTimes; i++)
 	{
-		double thisVariance = Vols_.IntegralSquare(0.0, Times[0]);
+		double thisVariance = Vols_.IntegralSquare(Times[i - 1], Times[i]);
 		Drifts[i] = R_.Integral(Times[i - 1], Times[i])
 			- D_.Integral(Times[i - 1], Times[i])
 			- 0.5 * thisVariance;

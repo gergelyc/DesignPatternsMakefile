@@ -6,27 +6,27 @@
 #include "AntiThetic.h"
 #include "PathDependentAsian.h"
 #include "ExoticBSEngine.h"
+#include "PayOffFactory.h"
+#include <string>
 
 using namespace std;
 
 int main()
 {
 	double Expiry;
-	double LowerLevel, UpperLevel;
+	double Strike;
 	double Spot;
 	double Vol;
 	double r;
+	string PayOffId;
 	unsigned long NumberOfPaths;
 	unsigned long NumberOfDates;
 
 	cout << "\nEnter expiry\n";
 	cin >> Expiry;
 
-	cout << "\nEnter lower level\n";
-	cin >> LowerLevel;
-
-	cout << "\nEnter upper level\n";
-	cin >> UpperLevel;
+	cout << "\nEnter strike\n";
+	cin >> Strike;
 
 	cout << "\nEnter spot\n";
 	cin >> Spot;
@@ -36,6 +36,9 @@ int main()
 
 	cout << "\nEnter r\n";
 	cin >> r;
+
+	cout << "\nEnter pay-off id\n";
+	cin >> PayOffId;
 
 	cout << "\nNumber of paths\n";
 	cin >> NumberOfPaths;
@@ -50,9 +53,11 @@ int main()
 		cin >> LookAtTimes[i];
 	}
 
-	//set up path dependent option
-	PayOffDoubleDigital payOffDoubleDigital{ LowerLevel, UpperLevel };
-	PathDependentAsian TheAsianDoubleDigital(LookAtTimes, Expiry, payOffDoubleDigital);
+	//create pay off using the factory
+	PayOff* thePayOffPtr = PayOffFactory::Instance().CreatePayOff(PayOffId, Strike);
+
+	//create path dependent option
+	PathDependentAsian TheAsianDoubleDigital(LookAtTimes, Expiry, *thePayOffPtr);
 
 	//set up exotic engine
 	ParametersConstant VolParam{ Vol };
@@ -75,9 +80,10 @@ int main()
 
 	//run simulation
 	TheBSEngine.DoSimulation(gathererMeanConvTable, NumberOfPaths);
+
 	vector<vector<double>> results = gathererMeanConvTable.GetResultSoFar();
 
-	cout << "For the double digital the results are:" << endl;
+	cout << "For the " << PayOffId << " the results are:" << endl;
 
 	for (unsigned long i = 0; i < results.size(); i++)
 	{

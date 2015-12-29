@@ -11,7 +11,7 @@ public:
 	virtual RandomBase* clone() const;
 	virtual void GetUniforms(std::vector<double>& variates);
 	virtual void Skip(unsigned long numberOfPaths);
-	virtual void SetSeed(unsigned long Seed);
+	virtual void SetSeed(long Seed);
 	virtual void ResetDimensionality(unsigned long NewDimensionality);
 	virtual void Reset();
 

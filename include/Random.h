@@ -13,7 +13,7 @@ public:
 	virtual RandomBase* clone() const = 0;
 	virtual void GetUniforms(std::vector<double>& variates) = 0;
 	virtual void Skip(unsigned long numberOfPaths) = 0;
-	virtual void SetSeed(unsigned long Seed) = 0;
+	virtual void SetSeed(long Seed) = 0;
 	virtual void Reset() = 0;
 
 	virtual void GetGaussian(std::vector<double>& variates);

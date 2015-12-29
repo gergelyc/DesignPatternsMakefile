@@ -29,7 +29,7 @@ void AntiThetic::GetUniforms(std::vector<double>& variates)
 	}
 }
 
-void AntiThetic::SetSeed(unsigned long Seed)
+void AntiThetic::SetSeed(long Seed)
 {
 	InnerGenerator->SetSeed(Seed);
 	OddEven = true;

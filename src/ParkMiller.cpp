@@ -5,14 +5,14 @@ const long m = 2147483647;
 const long q = 127773;
 const long r = 2836;
 
-ParkMiller::ParkMiller(unsigned long Seed_)
+ParkMiller::ParkMiller(long Seed_)
 	: Seed{ Seed_ }
 {
 	if (Seed == 0)
 		Seed = 1;
 }
 
-void ParkMiller::SetSeed(unsigned long Seed_)
+void ParkMiller::SetSeed(long Seed_)
 {
 	Seed = Seed_;
 	if (Seed == 0)
@@ -38,7 +38,7 @@ long ParkMiller::GetOneRandomInteger()
 	return Seed;
 }
 
-RandomParkMiller::RandomParkMiller(unsigned long Dimensionality, unsigned long Seed)
+RandomParkMiller::RandomParkMiller(unsigned long Dimensionality, long Seed)
 	: RandomBase{ Dimensionality }, InnerGenerator{ Seed }, InitialSeed{ Seed }
 {
 	Reciprocal = 1 / (1.0 + InnerGenerator.Max());
@@ -62,7 +62,7 @@ void RandomParkMiller::Skip(unsigned long numberOfPaths)
 		GetUniforms(tmp);
 }
 
-void RandomParkMiller::SetSeed(unsigned long Seed)
+void RandomParkMiller::SetSeed(long Seed)
 {
 	InitialSeed = Seed;
 	InnerGenerator.SetSeed(Seed);
