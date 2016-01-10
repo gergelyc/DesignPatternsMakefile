@@ -31,12 +31,11 @@ public:
 	{
 		if (this != original)
 		{
+			T* newPtr = (original.DataPtr != nullptr) ?
+			            original.DataPtr->clone() : nullptr;
 			if (DataPtr)
 				delete DataPtr;
-			if (original.DataPtr)
-				DataPtr = original.DataPtr->clone();
-			else
-				DataPtr = nullptr;
+			DataPtr = newPtr;
 		}
 		return *this;
 	}
